@@ -1,0 +1,28 @@
+Package: hgutils
+Version: 0.0.0.9011
+Date: 2018-07-07
+Title: TEST Description
+Authors@R: person("H.G.", "van den Boorn", email = "hvdboorn@gmail.com", role = c("aut", "cre"))
+Description:
+    A handy collection of utility
+    functions designed to aid in package
+    development.
+Depends: R (>= 3.1)
+Imports:
+    crayon,
+    grDevices,
+    limSolve,
+    magrittr,
+    stringr,
+    utils,
+    XML
+Suggests:
+    methods,
+    testthat
+License: GPL-3
+URL: https://github.com/hvdboorn/hgutils
+Encoding: UTF-8
+LazyData: true
+Language: en-GB
+RoxygenNote: 6.0.1.9000
+Random: 339
