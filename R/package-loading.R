@@ -1,14 +1,16 @@
 #' Load and install packages
 #'
 #' @description Utility function to load and optionally install packages if they are missing. When the function terminates,
-#' packages are installed (if necessary), upgraded to the latest version (if necessary) and loaded.
+#' packages are installed (if necessary) and loaded. Upgradeable packages are shown.
 #'
 #' @param install_packages whether to install the selected packages.
 #' @param force_install whether to install packages even if they are installed already.
-#' @param upgrade whether to upgrade outdated packages. Defaults to \code{FALSE}.
-#' @param ... list of additional package names.
+#' @param show_outdated_packages whether to show a list of packages which are outdated.
+#' @param default_loading_method load according to the default R method using only \code{library()}
+#' @param return_library_statements makes this function only return a string containing \code{library()} statements which can be paste into an R script.
 #' @param collection_name One or multiple collection names. Must be in \code{"data_import","image_import","ggplot",
 #' "grid","survival","processing","shiny","development"}.
+#' @param ... list of additional package names.
 #'
 #' @details
 #' \code{load_packages} optionally installs, upgrades and attaches packages to the work space for a list of specified packages.
@@ -42,7 +44,11 @@
 #'
 #' @importFrom utils install.packages old.packages update.packages compareVersion installed.packages
 #' @importFrom crayon underline
-load_packages = function(..., install_packages = TRUE, force_install = FALSE, upgrade=FALSE) {
+#' @importFrom magrittr set_rownames
+load_packages = function(..., install_packages = TRUE, force_install = FALSE, show_outdated_packages=TRUE,
+                         default_loading_method=FALSE, return_library_statements=FALSE) {
+  oldw <- getOption("warn")
+  options(warn = -1)
   start = Sys.time()
   #-- Check for extra arguments in '...' -------
   packages = list(...) %>% unlist
@@ -52,7 +58,11 @@ load_packages = function(..., install_packages = TRUE, force_install = FALSE, up
   packages = packages %>% unique %>% sort
   invalid_names = packages[!valid_pkgname(packages)]
   if(length(invalid_names) > 0)
-    stop(sprintf("The argument '...' contains the following invalid package names: %s.", invalid_names))
+    stop(sprintf("The argument '...' contains the following invalid package names: %s.", paste0(invalid_names,collapse = ", ")))
+
+  found = sapply(packages, function(x) length(find.package(x, quiet = TRUE)) > 0)
+  installed = names(found)[found]
+  not_installed = names(found)[!found]
 
   #-- Define constants -------
   bull = .bullets()
@@ -75,30 +85,59 @@ load_packages = function(..., install_packages = TRUE, force_install = FALSE, up
     spinner(refresh = 1/24)
   }
 
+  if(return_library_statements || default_loading_method) {
+    text = paste0("library(", installed,")", collapse = "; ")
+    ni = wrap_text_table(not_installed, exdent) %>% str_replace_all("(\\w+)",.cwarn(underline("\\1")))
+
+    if(length(not_installed) > 0)
+      cat(bull$warn, "Skipped packages:     ", ni, "\n",sep="")
+    options(warn = oldw)
+    if (return_library_statements) {
+      return(text)
+    } else {
+      eval(parse(text = text))
+      return(invisible())
+    }
+  }
+
   #-- show title -------
   left = sprintf("Loading packages (total: %s package%s)",length(packages), ifelse(length(packages)>1,"s",""))
   cat(.get_title_bar(left),"\n")
 
   cat("\r",render(prog, progress=0)," Retrieving package info...",spaces, sep = "")
 
-  inst = installed.packages()
-  outdated_pkgs = old.packages(instPkgs = inst[inst[,"Package"] %in% packages,, drop=FALSE]) %>% data.frame(stringsAsFactors=FALSE)
-  outdated_pkgs$Installed = sapply(outdated_pkgs$Package, function(x) format(packageVersion(x))) #other installed is old
-  outdated_pkgs %<>% {.[package_version(.$Installed) < package_version(.$ReposVer),]}
-  consider_upgrade = outdated_pkgs$Package
-  data_acc = data.frame(package=character(),action=character(),result=logical()); acc_i = 1
+  consider_upgrade = c()
+  if(show_outdated_packages) {
+    inst = installed.packages() %>% set_rownames(NULL)
+    inst = inst[order(package_version(inst[,"Version"]),decreasing = TRUE),]
+    current_versions = lapply(installed, function(x) {vers = inst[inst[,"Package"]==x,];
+    if(is.null(nrow(vers))) {
+      vers
+    } else if (nrow(vers)==0){
+      NULL
+    } else {
+      vers[1,]
+    }}) %>% do.call(rbind,.)
+
+    if(!is.null(current_versions) && nrow(current_versions) > 0) {
+      outdated_pkgs = old.packages(instPkgs = current_versions) %>% data.frame(stringsAsFactors=FALSE)
+      outdated_pkgs$Installed = sapply(outdated_pkgs$Package, function(x) format(packageVersion(x))) #other installed is old
+      outdated_pkgs %<>% {.[package_version(.$Installed) < package_version(.$ReposVer),]}
+      consider_upgrade = outdated_pkgs$Package
+    }
+  }
+
   for (p in 1:length(packages)) {
     package = packages[p]
 
     cat("\r",render(prog, p, show_progress)," loading ",package,"...",spaces, sep = "")
-    stfu({package_exists = require(package, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)})
 
-    will_install = !package_exists && install_packages || force_install
-    will_upgrade = upgrade && package %in% consider_upgrade
+    will_install = !(package %in% installed) && install_packages || force_install
+    #will_upgrade = upgrade && package %in% consider_upgrade
 
     can_load = TRUE
-    added_res = FALSE
-    if(!package_exists && !install_packages) fail = c(fail, package)
+    if(!(package %in% installed) && !install_packages)
+      fail = c(fail, package)
 
     if (will_install) {
       cat("\r",render(prog, p, show_progress)," installing ",package,"...",spaces, sep = "")
@@ -106,47 +145,42 @@ load_packages = function(..., install_packages = TRUE, force_install = FALSE, up
 
       stfu({can_load = require(package, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)})
       if (!can_load) fail = c(fail, package)
-
-      data_acc = rbind(data_acc, data.frame(package=package, action="INSTALL", result=can_load, stringsAsFactors = FALSE))
-      added_res = TRUE
     }
 
-    if (will_upgrade) #upgrade package
-    {
-      sel = outdated_pkgs[outdated_pkgs$Package==package,]
-      cat("\r",render(prog, p, show_progress)," upgrading ",package,"...",spaces, sep = "")
-      stfu({install.packages(package, verbose = FALSE, quiet = TRUE)})
-
-      current_ver = format(packageVersion(package))
-      if (compareVersion(current_ver, sel$Installed) <= 0) {upgrade_fail=c(upgrade_fail, package)} else {upgraded=c(upgraded, package)}
-
-      data_acc = rbind(data_acc, data.frame(package=package, action="UPGRADE",
-                                            result=compareVersion(current_ver, sel$ReposVer) < 0, stringsAsFactors = FALSE))
-      added_res = TRUE
-    }
+    # if (will_upgrade) #upgrade package
+    # {
+    #   sel = outdated_pkgs[outdated_pkgs$Package==package,]
+    #   cat("\r",render(prog, p, show_progress)," upgrading ",package,"...",spaces, sep = "")
+    #   stfu({detach(paste0("package:",package),unload = TRUE);
+    #     update.packages(oldPkgs=package, verbose = FALSE, quiet = TRUE,ask = FALSE)})
+    #
+    #   current_ver = format(packageVersion(package))
+    #   if (compareVersion(current_ver, sel$Installed) <= 0) {upgrade_fail=c(upgrade_fail, package)} else {upgraded=c(upgraded, package)}
+    #
+    #   data_acc = rbind(data_acc, data.frame(package=package, action="UPGRADE",
+    #                                         result=compareVersion(current_ver, sel$ReposVer) < 0, stringsAsFactors = FALSE))
+    #   added_res = TRUE
+    # }
 
     if (can_load) {
       cat("\r",render(prog, p, show_progress)," loading ",package,"...",spaces, sep = "")
       stfu({library(package, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)})
       success = c(success,package)
-
-      if(!added_res)
-        data_acc = rbind(data_acc, data.frame(package=package, action="LOAD", result=TRUE, stringsAsFactors = FALSE))
     }
   }
   cat("\r",spaces,"\r")
 
   ## Output status ####################
   pkg_success = wrap_text_table(success, exdent)
-  pkg_upgrade = wrap_text_table(upgraded, exdent)
-  pkg_upgrade_failed = wrap_text_table(upgrade_fail, exdent) %>% str_replace_all("(\\w+)",.cfail(underline("\\1")))
+  #pkg_upgrade = wrap_text_table(upgraded, exdent)
+  #pkg_upgrade_failed = wrap_text_table(upgrade_fail, exdent) %>% str_replace_all("(\\w+)",.cfail(underline("\\1")))
   pkg_failed = wrap_text_table(fail, exdent) %>% str_replace_all("(\\w+)",.cfail(underline("\\1")))
   pkg_dupl = wrap_text_table(names(duplicates), exdent) %>% str_replace_all("(\\w+)",.cwarn(underline("\\1")))
   pkg_cons = wrap_text_table(consider_upgrade, exdent) %>% str_replace_all("(\\w+)", .chint(underline("\\1")))
 
   if(length(success) > 0) cat(bull$succ,SUCCESS,pkg_success,"\n",sep = "")
-  if(length(upgraded) > 0) cat(bull$succ,UPGRADED,pkg_upgrade,"\n",sep="")
-  if(length(upgrade_fail) > 0) cat(bull$fail, .cfail(UPGRADE_FAIL),pkg_upgrade_failed,"\n",sep="")
+  #if(length(upgraded) > 0) cat(bull$succ,UPGRADED,pkg_upgrade,"\n",sep="")
+  #if(length(upgrade_fail) > 0) cat(bull$fail, .cfail(UPGRADE_FAIL),pkg_upgrade_failed,"\n",sep="")
   if(length(fail) > 0) cat(bull$fail, .cfail(FAILED),pkg_failed,"\n",sep="")
   if(length(duplicates) > 0) cat(bull$warn, DUPLICATED,pkg_dupl,"\n",sep="")
 
@@ -159,7 +193,7 @@ load_packages = function(..., install_packages = TRUE, force_install = FALSE, up
 
   end = Sys.time()
   cat(sprintf("\n%sDone. %s\n", bull$info, .cnumb(format_duration(start, end))))
-  invisible(list(packages=packages, actions=data_acc, outdated=outdated_pkgs))
+  options(warn=oldw)
 }
 
 #' List package collections

@@ -2,11 +2,11 @@
 #' @description Clears workspace, deletes all objects from global environment,
 #' clears graphics and (optionally) sets working directory.
 #'
-#' @param clean whether to remove objects in the global environment,
-#' run garbage collection and to clear graphics. Defaults to \code{TRUE}.
-#'
 #' @param folder folder name to set the current working directory.
 #' @param verbose whether to print informative messages during cleaning.
+#' @param removeObjects whether to remove objects from the workspace.
+#' @param runGarbageCollection whether to run the garbage collection.
+#' @param clearGraphics whether to clear the graphics from the R studio plots screen.
 #'
 #' @return NULL
 #'
@@ -15,14 +15,19 @@
 #' @importFrom crayon red blue
 #' @importFrom grDevices graphics.off dev.list
 #' @family initialization functions
-startup = function(clean = TRUE, folder = NULL, verbose=TRUE) {
-  if (clean) {
+startup = function(removeObjects=TRUE, runGarbageCollection=TRUE, clearGraphics=TRUE, folder = NULL, verbose=TRUE) {
+  if (removeObjects) {
     objects = ls(pos = .GlobalEnv)
     rm(list = objects, envir = .GlobalEnv)
     if(verbose) cat(blue(" \u25ba"), "Removed",length(objects),
                     "objects from the global environment.\n")
-    gc()
+  }
 
+  if(runGarbageCollection) {
+    gc()
+  }
+
+  if(clearGraphics){
     n_devices = length(dev.list())
     if(n_devices > 0) {
       graphics.off()

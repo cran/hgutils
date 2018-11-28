@@ -1,6 +1,6 @@
 Package: hgutils
-Version: 0.2.3
-Date: 2018-09-16
+Version: 0.2.5
+Date: 2018-11-28
 Title: Collection of Utility Functions
 Authors@R: person("H.G.", "van den Boorn", email = "hvdboorn@gmail.com", role = c("aut", "cre"))
 Description: 
@@ -10,7 +10,7 @@ Description:
     Some of the other functionalities include automatic package installation and loading, plotting points without overlap,
     creating nice breaks for plots, overview tables and many more handy utility functions.
 Depends: R (>= 3.1)
-Imports: crayon, grDevices, limSolve, magrittr, stringr, utils, XML
+Imports: crayon, grDevices, limSolve, magrittr, stringr, utils
 Suggests: methods, testthat
 License: GPL-3
 URL: https://github.com/hvdboorn/hgutils
@@ -18,10 +18,10 @@ BugReports: https://github.com/hvdboorn/hgutils/issues
 Encoding: UTF-8
 LazyData: true
 Language: en-GB
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2018-09-16 19:21:39 UTC; H.G. van den Boorn
+Packaged: 2018-11-28 08:17:52 UTC; H.G. van den Boorn
 Author: H.G. van den Boorn [aut, cre]
 Maintainer: H.G. van den Boorn <hvdboorn@gmail.com>
 Repository: CRAN
-Date/Publication: 2018-09-24 23:10:06 UTC
+Date/Publication: 2018-11-28 08:30:03 UTC
