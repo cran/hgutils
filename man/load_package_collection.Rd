@@ -7,9 +7,10 @@
 \alias{load_common_packages}
 \title{List package collections}
 \usage{
-
-  load_package_collection(collection_name = names(list_package_collections()),
-  ...)
+load_package_collection(
+  collection_name = names(list_package_collections()),
+  ...
+)
 
 list_package_collections()
 

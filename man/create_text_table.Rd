@@ -20,7 +20,7 @@ A vector of strings per row, forming together a table.
 Creates a text table
 }
 \examples{
-cat(create_text_table(LETTERS),sep = "\\n")
+cat(create_text_table(LETTERS),sep = "\n")
 }
 \seealso{
 \code{\link{get_square_grid}}.

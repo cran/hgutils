@@ -5,8 +5,14 @@
 \alias{ggplot_breaks}
 \title{Create nice axis breaks for plots}
 \usage{
-get_breaks(limits, N = 10, max_breaks = 10, int_only = TRUE,
-  multiples_only = FALSE, include_bounds = TRUE)
+get_breaks(
+  limits,
+  N = 10,
+  max_breaks = 10,
+  int_only = TRUE,
+  multiples_only = FALSE,
+  include_bounds = TRUE
+)
 
 ggplot_breaks(...)
 }
@@ -25,17 +31,11 @@ multiples of \code{N} when \code{multiples_only} is \code{TRUE}. Defaults to 10.
 
 \item{include_bounds}{whether the resulting breaks should encompass \code{min} and \code{max}. Defaults to \code{TRUE}.}
 
-\item{...}{Arguments passed on to \code{get_breaks}
-\describe{
-  \item{limits}{axis limits. May be either a vector of 2 elements with lower and upper bounds, or a
-single number (which is the upper bound, the lower bound is then assumed to be 0).}
-  \item{N}{step size. The eventual intervals will be multiples of the divisors of \code{N} or
-multiples of \code{N} when \code{multiples_only} is \code{TRUE}. Defaults to 10.}
-  \item{max_breaks}{maximum amount of breaks, defaults to 10.}
-  \item{int_only}{whether only integer divisors of \code{N} may be used as breaks, defaults to \code{TRUE}.}
-  \item{multiples_only}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
-  \item{include_bounds}{whether the resulting breaks should encompass \code{min} and \code{max}. Defaults to \code{TRUE}.}
-}}
+\item{...}{
+  Arguments passed on to \code{\link[=get_breaks]{get_breaks}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \value{
 A sorted numerical vector with breaks of length \code{|max_breaks|+2} when \code{include_bounds} is \code{TRUE}

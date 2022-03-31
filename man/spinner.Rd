@@ -30,7 +30,7 @@ sp = spinner("|/-\\\\")
 n_operations = 100
 
 for(i in 1:n_operations) {
-  cat("\\r", render(sp),sep="")
+  cat("\r", render(sp),sep="")
   Sys.sleep(0.01)
 }}
 }

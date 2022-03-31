@@ -8,8 +8,7 @@
 \usage{
 create_table_one(df, numbers_as_categories = TRUE, deaths = NULL)
 
-create_contigency_table(df, x, max_size = 8,
-  numbers_as_categories = TRUE, ...)
+create_contigency_table(df, x, max_size = 8, numbers_as_categories = TRUE, ...)
 
 percentage_table(x, n_digits = 2)
 }
@@ -24,17 +23,18 @@ percentage_table(x, n_digits = 2)
 
 \item{max_size}{maximum size of unique elements in the numeric variable \code{x} before the values are clustered.}
 
-\item{...}{Arguments passed on to \code{get_breaks}
-\describe{
-  \item{limits}{axis limits. May be either a vector of 2 elements with lower and upper bounds, or a
+\item{...}{
+  Arguments passed on to \code{\link[=get_breaks]{get_breaks}}
+  \describe{
+    \item{\code{limits}}{axis limits. May be either a vector of 2 elements with lower and upper bounds, or a
 single number (which is the upper bound, the lower bound is then assumed to be 0).}
-  \item{N}{step size. The eventual intervals will be multiples of the divisors of \code{N} or
+    \item{\code{N}}{step size. The eventual intervals will be multiples of the divisors of \code{N} or
 multiples of \code{N} when \code{multiples_only} is \code{TRUE}. Defaults to 10.}
-  \item{max_breaks}{maximum amount of breaks, defaults to 10.}
-  \item{int_only}{whether only integer divisors of \code{N} may be used as breaks, defaults to \code{TRUE}.}
-  \item{multiples_only}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
-  \item{include_bounds}{whether the resulting breaks should encompass \code{min} and \code{max}. Defaults to \code{TRUE}.}
-}}
+    \item{\code{max_breaks}}{maximum amount of breaks, defaults to 10.}
+    \item{\code{int_only}}{whether only integer divisors of \code{N} may be used as breaks, defaults to \code{TRUE}.}
+    \item{\code{multiples_only}}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
+    \item{\code{include_bounds}}{whether the resulting breaks should encompass \code{min} and \code{max}. Defaults to \code{TRUE}.}
+  }}
 
 \item{n_digits}{The number of digits to which the percentages are rounded.}
 }

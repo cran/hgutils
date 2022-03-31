@@ -8,19 +8,25 @@
 \alias{render.progressbar}
 \title{Creates an animated progress bar}
 \usage{
-progressbar(format = "[[|][|/-\\\\][ ]]", width = 20, refresh = 200,
-  n_iterations = NULL)
+progressbar(
+  format = "[[|][|/-\\\\][ ]]",
+  width = 20,
+  refresh = 200,
+  n_iterations = NULL
+)
 
 render(object, ...)
 
-\method{render}{fraction_progressbar}(object, progress,
-  show_progress = c("nothing", "percentage"), ...)
+\method{render}{fraction_progressbar}(object, progress, show_progress = c("nothing", "percentage"), ...)
 
-\method{render}{iteration_progressbar}(object, progress,
-  show_progress = c("nothing", "percentage", "iteration"), ...)
+\method{render}{iteration_progressbar}(
+  object,
+  progress,
+  show_progress = c("nothing", "percentage", "iteration"),
+  ...
+)
 
-\method{render}{progressbar}(object, show_progress = c("nothing",
-  "percentage", "iteration"), ...)
+\method{render}{progressbar}(object, show_progress = c("nothing", "percentage", "iteration"), ...)
 }
 \arguments{
 \item{format}{character vector containing the format of the animation. See 'details' for more information.}
@@ -61,10 +67,10 @@ The format follows the following regular expression: \code{^.*?[.?][.*?][.?].*$}
 bar = progressbar(format = "[[|][|/-\\\\][ ]]")
 # fancy progressbar using UTF-8 codes
 n_operations = 1000
-bar2 = progressbar(format="\\u25ba[\\u2589][\\u2580\\u2584][\\u3000]\\u25c4", n_iterations=n_operations)
+bar2 = progressbar(format="\u25ba[\u2589][\u2580\u2584][\u3000]\u25c4", n_iterations=n_operations)
 
 for(i in 1:n_operations) {
-  cat("\\r", render(bar),sep="")
+  cat("\r", render(bar),sep="")
   Sys.sleep(0.01)
 }}
 }

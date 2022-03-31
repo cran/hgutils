@@ -4,8 +4,9 @@
 \alias{analyze_package_imports}
 \title{Analyze package imports}
 \usage{
-analyze_package_imports(files = list.files(pattern = "\\\\.[rR]$",
-  recursive = TRUE))
+analyze_package_imports(
+  files = list.files(pattern = "\\\\.[rR]$", recursive = TRUE)
+)
 }
 \arguments{
 \item{files}{A vector of filenames of R source files. Typically this is created by \code{list.files(folder, pattern="\\\.[rR]$")}}

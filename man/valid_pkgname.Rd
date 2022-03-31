@@ -35,9 +35,10 @@ valid_funcname(".2pkg") # invalid
 \code{\link[base]{make.names}}, \href{https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#The-DESCRIPTION-file}{'Writing R Extensions'} manual.
 }
 \seealso{
-Other developer functions: \code{\link{crossref_description}},
-  \code{\link{generic_implementations}},
-  \code{\link{load_packages}},
-  \code{\link{update_settings}}
+Other developer functions: 
+\code{\link{crossref_description}()},
+\code{\link{generic_implementations}()},
+\code{\link{load_packages}()},
+\code{\link{update_settings}()}
 }
 \concept{developer functions}

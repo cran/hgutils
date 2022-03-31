@@ -4,8 +4,13 @@
 \alias{startup}
 \title{Cleans R for use}
 \usage{
-startup(removeObjects = TRUE, runGarbageCollection = TRUE,
-  clearGraphics = TRUE, folder = NULL, verbose = TRUE)
+startup(
+  removeObjects = TRUE,
+  runGarbageCollection = TRUE,
+  clearGraphics = TRUE,
+  folder = NULL,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{removeObjects}{whether to remove objects from the workspace.}

@@ -58,3 +58,10 @@ test_that("rm_empty_rows: empty rows are gone", {
   data = rm_empty_rows(data)
   expect_equal(data, rbind(c(1,2,3), c(1, NA, 4), c(4,6,7), c(4, 8, NA)))
 })
+
+test_that("translate_items", {
+  v = c("A","B","C")
+  dict = c("A"="1")
+
+  expect_equal(translate_items(v, dict), c("1","B","C"))
+})

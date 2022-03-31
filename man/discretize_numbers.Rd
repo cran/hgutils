@@ -11,14 +11,15 @@ discretize_numbers(x, min_size = 1, ...)
 
 \item{min_size}{minimum size of bins at the edges. Any bins smaller than this size are combined.}
 
-\item{...}{Arguments passed on to \code{get_breaks}
-\describe{
-  \item{N}{step size. The eventual intervals will be multiples of the divisors of \code{N} or
+\item{...}{
+  Arguments passed on to \code{\link[=get_breaks]{get_breaks}}
+  \describe{
+    \item{\code{N}}{step size. The eventual intervals will be multiples of the divisors of \code{N} or
 multiples of \code{N} when \code{multiples_only} is \code{TRUE}. Defaults to 10.}
-  \item{max_breaks}{maximum amount of breaks, defaults to 10.}
-  \item{int_only}{whether only integer divisors of \code{N} may be used as breaks, defaults to \code{TRUE}.}
-  \item{multiples_only}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
-}}
+    \item{\code{max_breaks}}{maximum amount of breaks, defaults to 10.}
+    \item{\code{int_only}}{whether only integer divisors of \code{N} may be used as breaks, defaults to \code{TRUE}.}
+    \item{\code{multiples_only}}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
+  }}
 }
 \value{
 A factor with the same length as \code{x}, with labels indicating bins.

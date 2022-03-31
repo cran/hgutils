@@ -4,12 +4,19 @@
 \alias{add_badges}
 \title{Add badges to the README file for use on Github}
 \usage{
-add_badges(github_pkg, states = c("active", "abandoned", "concept",
-  "inactive", "moved", "suspended", "unsupported", "wip"),
-  readme_file = "README.md", show_repo_status = TRUE,
-  show_cran_version = TRUE, show_package_version = TRUE,
-  show_min_r = TRUE, show_last_update = TRUE, show_travis = TRUE,
-  show_code_coverage = TRUE)
+add_badges(
+  github_pkg,
+  states = c("active", "abandoned", "concept", "inactive", "moved", "suspended",
+    "unsupported", "wip"),
+  readme_file = "README.md",
+  show_repo_status = TRUE,
+  show_cran_version = TRUE,
+  show_package_version = TRUE,
+  show_min_r = TRUE,
+  show_last_update = TRUE,
+  show_travis = TRUE,
+  show_code_coverage = TRUE
+)
 }
 \arguments{
 \item{github_pkg}{The Github repository}
@@ -30,7 +37,7 @@ add_badges(github_pkg, states = c("active", "abandoned", "concept",
 
 \item{show_travis}{Whether to show the Travis test results as a badge (see \url{https://travis-ci.org})}
 
-\item{show_code_coverage}{Whether to show the code coverage as a badge (see \url{https://codecov.io})}
+\item{show_code_coverage}{Whether to show the code coverage as a badge (see \url{https://about.codecov.io/})}
 }
 \description{
 Add badges to the README file for use on Github

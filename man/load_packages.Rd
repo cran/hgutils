@@ -4,9 +4,14 @@
 \alias{load_packages}
 \title{Load and install packages}
 \usage{
-load_packages(..., install_packages = TRUE, force_install = FALSE,
-  show_outdated_packages = FALSE, default_loading_method = FALSE,
-  return_library_statements = FALSE)
+load_packages(
+  ...,
+  install_packages = TRUE,
+  force_install = FALSE,
+  show_outdated_packages = FALSE,
+  default_loading_method = FALSE,
+  return_library_statements = FALSE
+)
 }
 \arguments{
 \item{...}{list of package names.}
@@ -48,9 +53,10 @@ load_packages('magrittr','dplyr', install_packages=FALSE)
 \code{\link[utils]{update.packages}} for updating outdated packages,
 \code{\link[base]{library}} for load and attaching packages.
 
-Other developer functions: \code{\link{crossref_description}},
-  \code{\link{generic_implementations}},
-  \code{\link{update_settings}},
-  \code{\link{valid_pkgname}}
+Other developer functions: 
+\code{\link{crossref_description}()},
+\code{\link{generic_implementations}()},
+\code{\link{update_settings}()},
+\code{\link{valid_pkgname}()}
 }
 \concept{developer functions}

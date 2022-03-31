@@ -4,8 +4,12 @@
 \alias{crossref_description}
 \title{Set imports for \emph{DESCRIPTION} file}
 \usage{
-crossref_description(skip_prompt = FALSE, update = TRUE,
-  use_version_numbers = TRUE, rversion = "DEPENDENCIES_VERSION")
+crossref_description(
+  skip_prompt = FALSE,
+  update = TRUE,
+  use_version_numbers = TRUE,
+  rversion = "DEPENDENCIES_VERSION"
+)
 }
 \arguments{
 \item{skip_prompt}{whether to skip the confirmation prompt to change the \emph{DESCRIPTION} file. Defaults to \code{FALSE}.}
@@ -31,9 +35,10 @@ Update the \emph{DESCRIPTION} file with all imported packages stated in the sour
 \seealso{
 \code{\link[base]{numeric_version}}
 
-Other developer functions: \code{\link{generic_implementations}},
-  \code{\link{load_packages}},
-  \code{\link{update_settings}},
-  \code{\link{valid_pkgname}}
+Other developer functions: 
+\code{\link{generic_implementations}()},
+\code{\link{load_packages}()},
+\code{\link{update_settings}()},
+\code{\link{valid_pkgname}()}
 }
 \concept{developer functions}

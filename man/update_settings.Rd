@@ -26,8 +26,10 @@ foo = function(...) {
 \dontrun{foo(a=2, b=3)}
 }
 \seealso{
-Other developer functions: \code{\link{crossref_description}},
-  \code{\link{generic_implementations}},
-  \code{\link{load_packages}}, \code{\link{valid_pkgname}}
+Other developer functions: 
+\code{\link{crossref_description}()},
+\code{\link{generic_implementations}()},
+\code{\link{load_packages}()},
+\code{\link{valid_pkgname}()}
 }
 \concept{developer functions}

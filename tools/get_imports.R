@@ -17,6 +17,7 @@ functions = lapply(names(source_code), function(file_name) {
 
 single_list = unlist(functions, recursive=FALSE) %>% set_names(., sapply(., function(x) x$function_name))
 #set spaces after comma's
+fname = names(source_code)[1]
 for (fname in names(source_code)) {
   A = str_replace_all(source_code[[fname]],",(?! )",", ") %>% #put space behind comma
       str_replace_all("#(?![' ])","# ") %>% #put space behind hastag
@@ -25,9 +26,7 @@ for (fname in names(source_code)) {
 
   before = str_match_all(A, "(\\([^\\)\\(]*? = [^\\(\\)]*?\\))")[[1]][,2]
   after = str_replace_all(before, " = ", "=")
-  B = A %>% str_replace_all(fixed(before), fixed(after))
-
-      str_split("\n")
+  B = A %>% str_replace_all(fixed(before), fixed(after)) %>% str_split("\n")
   writeClipboard(B[[1]])
 
   parsed=getParseData(parse(text=single_list$load_packages))

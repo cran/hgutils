@@ -26,9 +26,10 @@ impls = generic_implementations('plot')
 
 }
 \seealso{
-Other developer functions: \code{\link{crossref_description}},
-  \code{\link{load_packages}},
-  \code{\link{update_settings}},
-  \code{\link{valid_pkgname}}
+Other developer functions: 
+\code{\link{crossref_description}()},
+\code{\link{load_packages}()},
+\code{\link{update_settings}()},
+\code{\link{valid_pkgname}()}
 }
 \concept{developer functions}

@@ -20,6 +20,7 @@ data <- rbind(c(1,2,3), c(1, NA, 4), c(4,6,7), c(NA, NA, NA), c(4, 8, NA))
 rm_empty_rows(data)
 }
 \seealso{
-Other NA functions: \code{\link{rm_na}}
+Other NA functions: 
+\code{\link{rm_na}()}
 }
 \concept{NA functions}

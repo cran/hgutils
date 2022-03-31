@@ -156,6 +156,20 @@ stfu = function(expr) {
   invisible(tryCatch(suppressWarnings(suppressMessages(expr)), finally = sink()))
 }
 
+#' Assign variables in a list
+#'
+#' @param x A named list of values
+#' @param envir The environment in which the values are assigned, defaults to the global environment
+#'
+#' @export
+#'
+#' @examples assign_list(list(a=1, b=2))
+assign_list = function(x, envir = .GlobalEnv) {
+  for(var in names(x)) {
+    assign(var, x[[var]], envir = envir)
+  }
+}
+
 #' Creates a title bar
 #'
 #' @param left The text on the left side of the title bar, may be \code{NULL}
@@ -170,4 +184,31 @@ stfu = function(expr) {
   } else {
     paste("==", left, paste0(rep("=",80-nchar(left)-nchar(name)-8),collapse = ""), .cinfo(name), "==")
   }
+}
+
+#' Translate item
+#'
+#' @param vector A vector whose values are to be translated.
+#' @param dict A named vector, whose names are keys in 'vector' to be replaced and whose values are the new values
+#'
+#' @return A vector with new values
+#' @export
+#'
+#' @examples
+#' v = c("A","B","C")
+#' dict = c("A"="1")
+#'
+#' translate_items(v, dict)
+translate_items = function(vector, dict) {
+  if (!is.vector(vector))
+    stop("Argument 'vector' must be a vector.")
+  if (!is.vector(dict) || is.null(names(dict)))
+    stop("Argument 'dict' must be a named vector.")
+
+  new_vector = vector
+  for(name in names(dict)) {
+    new_vector[vector==name] = dict[name]
+  }
+
+  new_vector
 }

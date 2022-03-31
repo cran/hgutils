@@ -1,3 +1,49 @@
+#' Creates a progression calculator which can display a loading bar and expected time to completion
+#'
+#' @param task_description A description of the task which is executed, if set to NA then no description if printed when using the render() function
+#' @param N The number of steps that are needed to complete the task
+#' @param object A progression calculator
+#' @param i The current iteration.
+#' @param interval The number of iterations to be completed before the progression calculator is updated.
+#' @param ... further arguments passed to or from other methods.
+#' @importFrom lubridate seconds_to_period seconds second minute hour
+#' @export
+#' @examples \dontrun{
+#' #create progression calculator with 10 iterations
+#' progress = progression_calculator("Example", N=10)
+#' for(i in 1:10) {
+#'   render(progress, i, interval=1) #render the calculator
+#'   Sys.sleep(0.2)
+#' }
+#' }
+progression_calculator = function(task_description, N) {
+  pc = list()
+  pc$task_description = task_description
+  pc$progress_bar = progressbar()
+  pc$start_time = Sys.time()
+  pc$N = N
+
+  class(pc) = "progression_calculator"
+  return(pc)
+}
+
+#' @rdname progression_calculator
+#' @export
+render.progression_calculator = function(object, i, interval=10, ...) {
+  if(i==1 & !is.na(object$task_description)) {
+    cat("\n", object$task_description, "\n")
+  }
+  # Show progress bar
+  if(i %% interval == 0 || i==1 || i==object$N) {
+    td = seconds_to_period(difftime(Sys.time(), object$start_time, units = "secs"))
+    remaining = ((difftime(Sys.time(), object$start_time, units = "secs") / i) * (object$N-i)) %>% seconds_to_period
+    rem = ifelse(seconds(remaining) > 60, sprintf("(remaining: %02.0f:%02.0f:00)",hour(remaining), minute(remaining)),
+                 sprintf("(remaining: %02.0f:%02.0f:%02.0f)",hour(remaining), minute(remaining), second(remaining)))
+    cat("\r", render(object$progress_bar, progress = i/object$N, show_progress = "percentage"),"\t",
+        sprintf("i=%d/%d \t %02.0f:%02.0f:%02.0f \t ", i, object$N, hour(td), minute(td), second(td)), rem, sep="")
+  }
+}
+
 #' Creates an animated progress bar
 #'
 #' @param format character vector containing the format of the animation. See 'details' for more information.
@@ -56,8 +102,8 @@ progressbar = function(format="[[|][|/-\\][ ]]", width = 20, refresh = 200, n_it
   progressbar
 }
 
-#' @export
 #' @rdname progressbar
+#' @export
 render = function(object, ...) {
   UseMethod("render", object)
 }

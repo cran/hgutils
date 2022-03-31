@@ -5,12 +5,20 @@
 \alias{exclude_patients}
 \title{Patient flowchart}
 \usage{
-inclusion_flowchart(dataset, node_text = "\%s eligable patients",
-  stratum = NULL)
+inclusion_flowchart(
+  dataset,
+  node_text = "\%s eligable patients",
+  stratum = NULL
+)
 
-exclude_patients(flowchart, dataset, exclusion_criterium,
+exclude_patients(
+  flowchart,
+  dataset,
+  exclusion_criterium,
   reason = deparse(substitute(exclusion_criterium)),
-  node_text = "\%s eligable patients", excluded_text = "\%s excluded")
+  node_text = "\%s eligable patients",
+  excluded_text = "\%s excluded"
+)
 }
 \arguments{
 \item{dataset}{The dataset, must be a data.frame.}
