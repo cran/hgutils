@@ -22,7 +22,7 @@
 #' flowchart #print diagram
 #' }
 inclusion_flowchart = function(dataset, node_text="%s eligable patients", stratum=NULL) {
-  if(class(dataset) != "data.frame") {
+  if(!inherits(dataset,"data.frame")) {
     stop(sprintf("Argument 'dataset' must be a data.frame but is of type %s.", frmt(class(dataset))))
   }
 

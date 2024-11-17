@@ -15,12 +15,12 @@ test_that("seperate_values: values are nicely seperated and in range", {
   }
 })
 
-test_that("ggplot_breaks: get_bounds includes limits + size is ok", {
+test_that("get_breaks: get_bounds includes limits + size is ok", {
   for (i in 1:250){
     lower = round(runif(1,1,20))
     upper = round(runif(1,0,20))+lower
-    breaks = ggplot_breaks(include_bounds=TRUE)(c(lower,upper))
-    breaks2 = ggplot_breaks(include_bounds=FALSE)(c(lower,upper))
+    breaks = get_breaks(c(lower,upper), include_bounds=TRUE)
+    breaks2 = get_breaks(c(lower,upper), include_bounds=FALSE)
 
     expect_true(lower >= min(breaks) && upper <= max(breaks))
     expect_true(length(breaks) <= 12 && length(breaks) >= 0)

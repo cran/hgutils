@@ -2,7 +2,6 @@
 % Please edit documentation in R/plot-utils.R
 \name{get_breaks}
 \alias{get_breaks}
-\alias{ggplot_breaks}
 \title{Create nice axis breaks for plots}
 \usage{
 get_breaks(
@@ -13,8 +12,6 @@ get_breaks(
   multiples_only = FALSE,
   include_bounds = TRUE
 )
-
-ggplot_breaks(...)
 }
 \arguments{
 \item{limits}{axis limits. May be either a vector of 2 elements with lower and upper bounds, or a
@@ -30,12 +27,6 @@ multiples of \code{N} when \code{multiples_only} is \code{TRUE}. Defaults to 10.
 \item{multiples_only}{whether only multiples of \code{N} can be used as breaks, defaults to \code{FALSE}.}
 
 \item{include_bounds}{whether the resulting breaks should encompass \code{min} and \code{max}. Defaults to \code{TRUE}.}
-
-\item{...}{
-  Arguments passed on to \code{\link[=get_breaks]{get_breaks}}
-  \describe{
-    \item{\code{}}{}
-  }}
 }
 \value{
 A sorted numerical vector with breaks of length \code{|max_breaks|+2} when \code{include_bounds} is \code{TRUE}

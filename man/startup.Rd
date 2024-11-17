@@ -9,7 +9,8 @@ startup(
   runGarbageCollection = TRUE,
   clearGraphics = TRUE,
   folder = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  seed = 37
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ startup(
 \item{folder}{folder name to set the current working directory.}
 
 \item{verbose}{whether to print informative messages during cleaning.}
+
+\item{seed}{the random set to be set with set.seed; is ignored if value is set to NULL.}
 }
 \description{
 Clears workspace, deletes all objects from global environment,

@@ -93,7 +93,7 @@ update_description = function(fieldname, value, after = NULL) {
 #' @param show_package_version Whether to show the package version as a badge
 #' @param show_min_r Whether to show the minimal R version as a badge
 #' @param show_last_update Whether to show the last update date as a badge
-#' @param show_travis Whether to show the Travis test results as a badge (see \url{https://travis-ci.org})
+#' @param show_travis Whether to show the Travis test results as a badge (see \url{https://www.travis-ci.com})
 #' @param show_code_coverage Whether to show the code coverage as a badge (see \url{https://about.codecov.io/})
 #'
 #' @export
@@ -123,7 +123,7 @@ add_badges = function(github_pkg, states=c("active", "abandoned", "concept", "in
   last_update = ifelse(show_last_update, paste0("[![last_update](https://img.shields.io/badge/last%20update-",
                                                 desc$Date %>% str_replace_all("-","--"),"-blue.svg)](https://github.com/",github_pkg,"/)"), "")
 
-  travis = ifelse(show_travis, paste0("[![Travis](https://travis-ci.org/",github_pkg,".svg)](https://travis-ci.org/",github_pkg,"/)"), "")
+  travis = ifelse(show_travis, paste0("[![Travis](https://www.travis-ci.com/",github_pkg,".svg)](https://www.travis-ci.com/",github_pkg,"/)"), "")
   repo_status = ifelse(show_repo_status, paste0("[![Project Status](https://www.repostatus.org/badges/latest/",status,".svg)](https://www.repostatus.org/#",status,"/)"), "")
   codecov = ifelse(show_code_coverage, paste0("[![Codecov](https://img.shields.io/codecov/c/github/",github_pkg,".svg)](https://app.codecov.io/gh/",github_pkg,"/)"), "")
   cran = ifelse(show_cran_version, paste0("[![CRAN](https://www.r-pkg.org/badges/version/",desc$Package,")](https://cran.r-project.org/package=",desc$Package,"/)"), "")

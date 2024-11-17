@@ -35,7 +35,7 @@ add_badges(
 
 \item{show_last_update}{Whether to show the last update date as a badge}
 
-\item{show_travis}{Whether to show the Travis test results as a badge (see \url{https://travis-ci.org})}
+\item{show_travis}{Whether to show the Travis test results as a badge (see \url{https://www.travis-ci.com})}
 
 \item{show_code_coverage}{Whether to show the code coverage as a badge (see \url{https://about.codecov.io/})}
 }

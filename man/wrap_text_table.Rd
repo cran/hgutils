@@ -7,10 +7,10 @@
 wrap_text_table(string, exdent, min_size = 9, table_width = 80 - exdent)
 }
 \arguments{
-\item{string}{character vector of strings to reformat.}
+\item{string}{Input vector. Either a character vector, or something
+coercible to one.}
 
-\item{exdent}{non-negative integer giving indentation of following lines in
-each paragraph}
+\item{exdent}{A non-negative integer giving the indent for all subsequent lines.}
 
 \item{min_size}{minimal size where a table is constructed, otherwise elements are concatenated with ', '.}
 

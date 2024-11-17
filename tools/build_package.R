@@ -2,20 +2,21 @@
 .rs.restartR()
 Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:/Program Files/MiKTeX/miktex/bin/x64",
                         sep=.Platform$path.sep))
+Sys.setenv('_R_CHECK_SYSTEM_CLOCK_' = 0)
 setwd("C://Users//Windows//Dropbox//hgpackages//hgutils")
 library(hgutils)
 hgutils::startup()
 # hgutils::crossref_description(skip_prompt=TRUE, use_version_numbers=FALSE,
 #                               rversion="DEPENDENCIES_VERSION", update=TRUE)
-attachment::att_amend_desc()
+#attachment::att_amend_desc()
 devtools::document()
 devtools::spell_check()
-devtools::run_examples(fresh=TRUE, run_dontrun = FALSE)
-devtools::test()
+#devtools::run_examples(fresh=TRUE, run_dontrun = FALSE)
+#devtools::test()
 
-devtools::check()
+devtools::check() #    usethis,
 update_description("Date", format(Sys.Date(), "%Y%-%m-%d"))
-add_badges("hvdboorn/hgutils")
+add_badges("hvdboorn/hgutils", show_travis = FALSE)
 
 ######### CHECK AS CRAN
 #########
@@ -38,9 +39,10 @@ urlchecker::url_update()
 
 # check on other distributions
 # _rhub
-devtools::check_rhub()
-rhub::check_on_windows(check_args = "--force-multiarch")
-rhub::check_on_solaris()
+rhub::rc_submit()
+# devtools::check_rhub()
+# rhub::check_on_windows(check_args = "--force-multiarch")
+# rhub::check_on_solaris()
 # _win devel
 devtools::check_win_devel()
 

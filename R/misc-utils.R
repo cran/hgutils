@@ -7,6 +7,7 @@
 #' @param removeObjects whether to remove objects from the workspace.
 #' @param runGarbageCollection whether to run the garbage collection.
 #' @param clearGraphics whether to clear the graphics from the R studio plots screen.
+#' @param seed the random set to be set with set.seed; is ignored if value is set to NULL.
 #'
 #' @return NULL
 #'
@@ -15,7 +16,7 @@
 #' @importFrom crayon red blue
 #' @importFrom grDevices graphics.off dev.list
 #' @family initialization functions
-startup = function(removeObjects=TRUE, runGarbageCollection=TRUE, clearGraphics=TRUE, folder = NULL, verbose=TRUE) {
+startup = function(removeObjects=TRUE, runGarbageCollection=TRUE, clearGraphics=TRUE, folder = NULL, verbose=TRUE, seed=37) {
   if (removeObjects) {
     objects = ls(pos = .GlobalEnv)
     rm(list = objects, envir = .GlobalEnv)
@@ -41,7 +42,31 @@ startup = function(removeObjects=TRUE, runGarbageCollection=TRUE, clearGraphics=
   if (!is.null(folder)) {
     ifelse(dir.exists(folder), setwd(folder), warning("Argument 'folder' does not refer to an existing directory."))
   }
+
+  if(!is.null(seed)) {
+    set.seed(seed)
+  }
   cat(green(" \u25ba"), "Done.\n")
+}
+
+#' Default value
+#' @description Returns a default value for a scalar, to be used when the input is NA, NULL or has a length of 0.
+#' @param x A value
+#' @param default_value The replacement value for when x is NA, NULL or has a length of 0.
+#'
+#' @return The value of x when x is not NA, NULL or has a length of 0, and default_value otherwise.
+#'
+#' @examples default(NA, 0)
+#' @export
+default = function(x, default_value) {
+  if(is.atomic(x) && length(x) > 1L) {
+    stop("Value is not a scalar.")
+  }
+
+  if(is.na(x) || is.null(x) || length(x) != 1L) {
+    return(default_value)
+  }
+  return(x)
 }
 
 #' Round number

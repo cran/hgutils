@@ -7,7 +7,8 @@
 create_text_table(string, table_width = 80, compact = TRUE)
 }
 \arguments{
-\item{string}{character vector of strings to reformat.}
+\item{string}{Input vector. Either a character vector, or something
+coercible to one.}
 
 \item{table_width}{table character width.}
 

@@ -24,7 +24,6 @@
 #'
 #' @export
 #' @family break functions
-#' @export
 get_breaks = function(limits, N=10, max_breaks=10, int_only=TRUE, multiples_only=FALSE, include_bounds=TRUE) {
   if (!is.vector(limits) || length(limits) > 2 || !is.numeric(limits))
     stop("Argument 'limits' must be a scalar or numeric vector.")
@@ -47,13 +46,6 @@ get_breaks = function(limits, N=10, max_breaks=10, int_only=TRUE, multiples_only
 
   if (!include_bounds) sq = sq[sq>=xmin & sq<=(xmin+xmax)]
   sq
-}
-
-#' @inheritDotParams get_breaks
-#' @export
-#' @rdname get_breaks
-ggplot_breaks = function(...) {
-  function(X) get_breaks(X, ...)
 }
 
 #' Separate values

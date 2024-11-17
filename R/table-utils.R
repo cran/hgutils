@@ -144,6 +144,7 @@ create_text_table = function(string, table_width = 80, compact = TRUE) {
 #'
 #' @param min_size minimal size where a table is constructed, otherwise elements are concatenated with ', '.
 #' @param table_width table character width.
+#' @param exdent A non-negative integer giving the indent for all subsequent lines.
 #' @inheritParams stringr::str_wrap
 #' @export
 #'

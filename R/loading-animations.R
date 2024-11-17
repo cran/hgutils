@@ -19,9 +19,8 @@
 progression_calculator = function(task_description, N) {
   pc = list()
   pc$task_description = task_description
-  pc$progress_bar = progressbar()
+  pc$progress_bar = progressbar(n_iterations = N)
   pc$start_time = Sys.time()
-  pc$N = N
 
   class(pc) = "progression_calculator"
   return(pc)
@@ -34,13 +33,19 @@ render.progression_calculator = function(object, i, interval=10, ...) {
     cat("\n", object$task_description, "\n")
   }
   # Show progress bar
-  if(i %% interval == 0 || i==1 || i==object$N) {
+  if(i %% interval == 0 || i==1 || i==object$progress_bar$n_iterations) {
     td = seconds_to_period(difftime(Sys.time(), object$start_time, units = "secs"))
-    remaining = ((difftime(Sys.time(), object$start_time, units = "secs") / i) * (object$N-i)) %>% seconds_to_period
-    rem = ifelse(seconds(remaining) > 60, sprintf("(remaining: %02.0f:%02.0f:00)",hour(remaining), minute(remaining)),
-                 sprintf("(remaining: %02.0f:%02.0f:%02.0f)",hour(remaining), minute(remaining), second(remaining)))
-    cat("\r", render(object$progress_bar, progress = i/object$N, show_progress = "percentage"),"\t",
-        sprintf("i=%d/%d \t %02.0f:%02.0f:%02.0f \t ", i, object$N, hour(td), minute(td), second(td)), rem, sep="")
+    remaining = ((difftime(Sys.time(), object$start_time, units = "secs") / i) * (object$progress_bar$n_iterations-i)) %>% seconds_to_period
+    rem = ifelse(seconds(remaining) < 60, sprintf("(remaining: %02.0f:%02.0f:%02.0f)",hour(remaining), minute(remaining), second(remaining)),
+                 ifelse(lubridate::day(remaining) >= 1,
+                        sprintf("(remaining: %d day(s) %02.0f:%02.0f:00)",lubridate::day(remaining),hour(remaining), minute(remaining)),
+                        sprintf("(remaining: %02.0f:%02.0f:00)",hour(remaining), minute(remaining))
+                 ))
+    td_string = ifelse(lubridate::day(td) >= 1,
+                       sprintf("i=%d/%d \t %d day(s) %02.0f:%02.0f:%02.0f \t ", i, object$progress_bar$n_iterations, lubridate::day(td), hour(td), minute(td), second(td)),
+                       sprintf("i=%d/%d \t %02.0f:%02.0f:%02.0f \t ", i, object$progress_bar$n_iterations, hour(td), minute(td), second(td))
+    )
+    cat("\r", render(object$progress_bar, progress = i, show_progress = "percentage"),"\t", td_string, rem, sep="")
   }
 }
 
