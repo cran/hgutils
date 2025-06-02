@@ -40,7 +40,7 @@ urlchecker::url_update()
 # check on other distributions
 # _rhub
 rhub::rc_submit()
-# devtools::check_rhub()
+#devtools::check_rhub()
 # rhub::check_on_windows(check_args = "--force-multiarch")
 # rhub::check_on_solaris()
 # _win devel

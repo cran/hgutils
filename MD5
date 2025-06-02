@@ -1,6 +1,6 @@
-1acc2638a183245bf785f0f41e30da78 *DESCRIPTION
-8b39b2f0da8bdf0124897c602d377529 *NAMESPACE
-732d255ebef665778afade29830e5332 *NEWS
+9b30effceb23111a5d3865b2a6a24bbf *DESCRIPTION
+5d53b7020531fed740a6edd738af5c0c *NAMESPACE
+b4dba516b714e267feba4939d486589c *NEWS
 71eaae67fc4294d2a854e69031b20558 *R/annotation-utils.R
 ae289d67bb4792eefb57ed2933d8449b *R/badge-utils.R
 2028444ce2880ed7c5ddebf88d138fc7 *R/description-utils.R
@@ -9,11 +9,11 @@ a7e2fcedd2f397bd2af800fa8a5bf404 *R/flowchart-utils.R
 25329236797d3be23ee29ffd0ec879eb *R/loading-animations.R
 13f1971e89a14106727ea42a5e826909 *R/misc-utils.R
 f3842e0d146766c85deb36601381fd89 *R/package-loading.R
-a1610d70eb833d83941e4da26148fcaf *R/plot-utils.R
+12a36839234cef93392914fad5db1863 *R/plot-utils.R
 a23906a5754afbb3799fe1c70534d6a5 *R/reduction-utils.R
 2d0ced41eba6e2d4b0990ed5371cfd52 *R/table-utils.R
 3e49568b083282986e3f55e2d7b95014 *R/utils-pipe.R
-85d2b8f099f127debc9e1211b217f27f *README.md
+8b4855f49fe4d560fd322b8aba3dba46 *README.md
 8557626743a713276d9d68139db8ee0f *inst/WORDLIST
 d3140e3d9cd16eb40c4b3858b495111e *man/add_badges.Rd
 9c9052c0a1382ce29b611bdf0e511f22 *man/analyze_package_imports.Rd
@@ -50,7 +50,6 @@ a8c15f9911c12ba95670a65d6519a609 *man/progressbar.Rd
 726080be3669771814147e6f25b0e672 *man/rm_na.Rd
 afdacd97e09a16cd97efbaf09b7d3d47 *man/rnd_dbl.Rd
 806f8623cdb2d9842347a4e04f015256 *man/sep_thousands.Rd
-48f75dd4e9350cd0a0ffa7e5c003d366 *man/separate_values.Rd
 38059bced6eb444d7e4560ab5e84f5f7 *man/spinner.Rd
 c0a7a90d4c8454e85f60c22663c690ff *man/startup.Rd
 0f37e7ae1769cac347e20a7b69d85d9f *man/stfu.Rd
@@ -66,12 +65,13 @@ f907631be598bd6168662cad79884588 *tests/testthat/test-extension-utils.R
 17f0dc6c0c6d705e20151a87de3d9f91 *tests/testthat/test-loading-animations.R
 94eee334b22d0ba6c0346b4a3df7cd43 *tests/testthat/test-misc-utils.R
 00fc2f6bb8b95bada7f0838b275be917 *tests/testthat/test-package-loading.R
-3d994b3989b92a5701d163e6ff09dbce *tests/testthat/test-plot-utils.R
+e76136709f57d5e3607f56741c12dba4 *tests/testthat/test-plot-utils.R
 ebcaa83e551672e6c4788268db0a5781 *tests/testthat/test-table-utils.R
-70eb347048ef1cbdd239fdac3f161846 *tools/build_package.R
+97832cb90ae711776c0aec48581d6962 *tools/build_package.R
 7e14a9146a53ac80f5bb0d21fa15608a *tools/check_packages.R
 03436928b4a380df0787a83d1b37b474 *tools/exercise/ex.R
 87d6b620f7c7172164087b7597b03d13 *tools/get_imports.R
+aa5db5c89b9d57dd50362177b60e8ebf *tools/old.R
 7631d462490baa6cb91e927b7c19bc0c *tools/output/dplyr.png
 e7458726ec574da4b33bbc50b368cc0a *tools/output/ggplot2.png
 281a6e84240f0ed604c19674669cb087 *tools/output/hgutils.png

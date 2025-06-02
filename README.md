@@ -1,9 +1,9 @@
 <!-- START_BADGES -->
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active/)
 [![CRAN](https://www.r-pkg.org/badges/version/hgutils)](https://cran.r-project.org/package=hgutils/)
-[![Package version](https://img.shields.io/badge/GitHub-0.2.13-orange.svg)](https://github.com/hvdboorn/hgutils/)
-[![minimal R version](https://img.shields.io/badge/R-v3.4.0+-blue.svg)](https://cran.r-project.org/)
-[![last_update](https://img.shields.io/badge/last%20update-2024--11--17-blue.svg)](https://github.com/hvdboorn/hgutils/)  
+[![Package version](https://img.shields.io/badge/GitHub-0.2.19-orange.svg)](https://github.com/hvdboorn/hgutils/)
+[![minimal R version](https://img.shields.io/badge/R-v4.4.0+-blue.svg)](https://cran.r-project.org/)
+[![last_update](https://img.shields.io/badge/last%20update-2025--06--02-blue.svg)](https://github.com/hvdboorn/hgutils/)  
 
 [![Codecov](https://img.shields.io/codecov/c/github/hvdboorn/hgutils.svg)](https://app.codecov.io/gh/hvdboorn/hgutils/)
 ---

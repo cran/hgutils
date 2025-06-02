@@ -3,3 +3,4 @@
 * 06-09-2019: v0.2.7 Added badge, table and package import analysis and improved package loading. Deprecated standard package loading to prevent unnecessary loading. Fixed some bugs.
 * 30-03-2022: v0.2.11 Added progression calculator and fixed some bugs.
 * 17-11-2024: v0.2.13 Small bug fixes to resolve CRAN notes.
+* 02-06-2025: v0.2.19 Removed dependency from deprecated package limSolve
